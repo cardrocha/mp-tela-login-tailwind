@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({
-    email: {
+    name: {
       hasChanged: false,
       value: "",
     },
@@ -16,13 +17,21 @@ const Login = () => {
     },
   });
 
+  const navigate = useNavigate()
+
+  const handleSubmit = () => {
+    if (form && pass) {
+      navigate('welcome')
+    }
+  }
+
   return (
     <div className="mx-auto max-w-[1366px]">
       <div className="bg-gradient-to-t from-purple-950 to-purple-500 w-[300px] pt-1 pb-10 mx-auto mt-12 rounded-md">
         <h1 className="text-3xl font-semibold text-center mt-12">
           Faça seu login
         </h1>
-        <form className="flex flex-col items-center justify-center mt-10 gap-5 w-[250px] mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center mt-10 gap-5 w-[250px] mx-auto">
           <div className="flex flex-col">
             <label className="text-sm font-semibold" htmlFor="name">
               Nome de usuário
@@ -30,22 +39,23 @@ const Login = () => {
             <input
               className="bg-gray-700 text-white p-1 rounded focus:outline-none focus:ring focus:border-blue-500"
               type="text"
-              value={form.email.value}
+              value={form.name.value}
               placeholder="Digite seu nome"
               onChange={(e) =>
                 setForm({
                   ...form,
-                  email: {
+                  name: {
                     hasChanged: true,
                     value: e.target.value,
                   },
                 })
               }
+              id="name"
               minLength={4}
               maxLength={9}
               required
             />
-            {form.email.hasChanged && !form.email.value && (
+            {form.name.hasChanged && !form.name.value && (
               <span className="text-red-300 font-semibold">
                 Este campo não pode ficar vazio
               </span>
@@ -68,6 +78,7 @@ const Login = () => {
                   },
                 })
               }
+              id="senha"
               minLength={4}
               maxLength={8}
               required
@@ -81,7 +92,7 @@ const Login = () => {
           <a className="ml-auto text-xs cursor-pointer" href="#">
             Esqueci minha senha
           </a>
-          <button className="bg-gradient-to-r from-purple-700 to-blue-500 hover:bg-gradient-to-r hover:from-purple-950 hover:to-blue-700 text-white px-4 py-2 rounded w-full">
+          <button type="submit" className="bg-gradient-to-r from-purple-700 to-blue-500 hover:bg-gradient-to-r hover:from-purple-950 hover:to-blue-700 text-white px-4 py-2 rounded w-full">
             Entrar
           </button>
           <a className="text-xs cursor-pointer underline" href="#">

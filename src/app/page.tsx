@@ -1,8 +1,11 @@
-import Image from "next/image";
-import Login from "./componets/Login/Login";
+'use client'
+import Login from "./componets/Login";
+import { BrowserRouter } from "react-router-dom";
 
 export default function Home() {
   return (
-    <Login/>
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
   );
 }
