@@ -1,4 +1,21 @@
+"use client";
+import { useState } from "react";
+
 const Login = () => {
+  const [form, setForm] = useState({
+    email: {
+      hasChanged: false,
+      value: "",
+    },
+  });
+
+  const [pass, setPass] = useState({
+    senha: {
+      hasChanged: false,
+      value: "",
+    },
+  });
+
   return (
     <div className="mx-auto max-w-[1366px]">
       <div className="bg-gradient-to-t from-purple-950 to-purple-500 w-[300px] pt-1 pb-10 mx-auto mt-12 rounded-md">
@@ -13,10 +30,26 @@ const Login = () => {
             <input
               className="bg-gray-700 text-white p-1 rounded focus:outline-none focus:ring focus:border-blue-500"
               type="text"
-              id="name"
+              value={form.email.value}
               placeholder="Digite seu nome"
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  email: {
+                    hasChanged: true,
+                    value: e.target.value,
+                  },
+                })
+              }
+              minLength={4}
+              maxLength={9}
               required
             />
+            {form.email.hasChanged && !form.email.value && (
+              <span className="text-red-300 font-semibold">
+                Este campo não pode ficar vazio
+              </span>
+            )}
           </div>
           <div className="flex flex-col">
             <label className="text-sm font-semibold" htmlFor="senha">
@@ -26,8 +59,24 @@ const Login = () => {
               className="bg-gray-700 text-white p-1 rounded focus:outline-none focus:ring focus:border-blue-500 "
               type="password"
               placeholder="Digite sua senha"
-              id="senha"
+              onChange={(e) =>
+                setPass({
+                  ...pass,
+                  senha: {
+                    hasChanged: true,
+                    value: e.target.value,
+                  },
+                })
+              }
+              minLength={4}
+              maxLength={8}
+              required
             />
+            {pass.senha.hasChanged && !pass.senha.value && (
+              <span className="text-red-300 font-semibold">
+                Este campo não pode ficar vazio
+              </span>
+            )}
           </div>
           <a className="ml-auto text-xs cursor-pointer" href="#">
             Esqueci minha senha
