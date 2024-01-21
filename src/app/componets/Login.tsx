@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from "react";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -16,12 +16,14 @@ const Login = () => {
       value: "",
     },
   });
+  
+  const router = useRouter();
 
-  const navigate = useNavigate()
-
-  const handleSubmit = () => {
-    if (form && pass) {
-      navigate('welcome')
+  const handleSubmit = (e: FormEvent) => {
+    
+    e.preventDefault()
+    if (form.name.value && pass.senha.value) {
+      router.push('/welcome');
     }
   }
 
